@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>After launch — 1on1</title>
-<meta name="description" content="Improvements queued for 1on1 after launch: what each one is, why it matters, and when to do it — in plain English." />
+<title>After launch · 1on1</title>
+<meta name="description" content="Improvements queued for 1on1 after launch: what each one is, why it matters, and when to do it, in plain English." />
 <style>
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
@@ -65,7 +65,7 @@
 
 <div class="page">
   <h1>After launch</h1>
-  <p class="sub">Improvements we deliberately queued so launch could happen sooner —
+  <p class="sub">Improvements we deliberately queued so launch could happen sooner:
   none of them block going live. Each card says what it is, why it's worth doing,
   and roughly when.</p>
   <div class="legend">
@@ -81,7 +81,7 @@
     <ol>
       <li>Log into <code>sentry.io</code> → your project → <strong>Issues</strong>.</li>
       <li>Sort by frequency; anything new after a release is worth a fix.</li>
-      <li>Hand the top error to the coding agent — it already has the stack trace and can fix it.</li>
+      <li>Hand the top error to the coding agent; it already has the stack trace and can fix it.</li>
     </ol>
     <p class="effort">Effort: 15 minutes twice a week. Do it from day one.</p>
   </div>
@@ -102,30 +102,30 @@
 
   <div class="task">
     <div class="head"><h2>3 · Video calls inside the app</h2><span class="pill early">First weeks</span></div>
-    <p>Today, joining a session opens the Daily room in the phone's browser — fully working, but
+    <p>Today, joining a session opens the Daily room in the phone's browser, fully working, but
     it leaves the app. Embedding the room natively keeps users inside 1on1 and feels far more
     polished.</p>
     <ol>
       <li>The coding agent adds the <code>@daily-co/react-native-daily-js</code> library and replaces the browser hand-off with an in-app room screen.</li>
-      <li>Re-run the paid-booking join test on the emulator — mic, camera, and the call itself should work without leaving the app.</li>
+      <li>Re-run the paid-booking join test on the emulator: mic, camera, and the call itself should work without leaving the app.</li>
     </ol>
     <p class="effort">Effort: ~1 day of agent work. Worth doing before inviting many hosts.</p>
   </div>
 
   <div class="task">
     <div class="head"><h2>4 · Instant message updates</h2><span class="pill later">When chat traffic grows</span></div>
-    <p>Messages currently refresh every 15 seconds — fine for low volume. Supabase Realtime
+    <p>Messages currently refresh every 15 seconds, fine for low volume. Supabase Realtime
     delivers them the instant they're sent instead.</p>
     <ol>
       <li>The coding agent enables Realtime on the <code>messages</code> table and swaps the 15-second poll for a live subscription (the polling stays as a safety net).</li>
-      <li>Test: two devices chatting — new messages should appear with no reload.</li>
+      <li>Test: two devices chatting: new messages should appear with no reload.</li>
     </ol>
     <p class="effort">Effort: ~half a day. Prioritize once hosts and clients chat daily.</p>
   </div>
 
   <div class="task">
     <div class="head"><h2>5 · Host self-service payouts (Stripe Connect)</h2><span class="pill later">Before scaling hosts</span></div>
-    <p>Right now hosts are paid manually off-platform after each session — fine for a handful,
+    <p>Right now hosts are paid manually off-platform after each session, fine for a handful,
     unmanageable at scale. Stripe Connect automates it: after a session completes, the host's
     cut moves to their bank account automatically and tax forms are handled.</p>
     <ol>
@@ -161,7 +161,7 @@
     <p class="effort">Effort: ~1 day. Do when no-shows or slow replies start hurting.</p>
   </div>
 
-  <p style="margin-top:36px;color:#8B93A2;font-size:14px">This list is reviewed monthly — anything users actually complain about jumps the queue. See also the <a href="/tasks.html">pre-launch tasks</a>.</p>
+  <p style="margin-top:36px;color:#8B93A2;font-size:14px">This list is reviewed monthly; anything users actually complain about jumps the queue. See also the <a href="/tasks.html">pre-launch tasks</a>.</p>
 </div>
 
 <footer>

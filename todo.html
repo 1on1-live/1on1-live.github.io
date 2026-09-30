@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Launch checklist — 1on1</title>
+<title>Launch checklist · 1on1</title>
 <meta name="description" content="Shared launch to-do list for the 1on1 team." />
 <style>
   :root { color-scheme: light; }
@@ -136,7 +136,7 @@
       var li = document.createElement('li');
       li.className = 'empty';
       li.style.border = 'none';
-      li.textContent = items.length ? 'Nothing ' + filter + ' right now.' : 'No tasks yet — add the first one above.';
+      li.textContent = items.length ? 'Nothing ' + filter + ' right now.' : 'No tasks yet, add the first one above.';
       list.appendChild(li);
     }
 
@@ -180,7 +180,7 @@
     var done = items.length - open;
     meta.textContent = items.length
       ? open + ' open · ' + done + ' done'
-      : 'Tip: these tasks are stored per browser — share the page, not the state.';
+      : 'Tip: these tasks are stored per browser; share the page, not the state.';
   }
 
   form.addEventListener('submit', function (e) {

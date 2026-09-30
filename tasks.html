@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Launch tasks — 1on1</title>
+<title>Launch tasks · 1on1</title>
 <meta name="description" content="Every remaining launch task for 1on1, with plain-English step-by-step instructions." />
 <style>
   :root { color-scheme: light; }
@@ -71,7 +71,7 @@
 
 <div class="page">
   <h1>Launch tasks</h1>
-  <p class="sub">Everything left to launch 1on1 — written for a human, not a developer.
+  <p class="sub">Everything left to launch 1on1, written for a human, not a developer.
   The code side is done; these are the account-and-dashboard steps only you can do.</p>
   <div class="legend">
     <span class="pill must">Do before launch</span>
@@ -85,20 +85,20 @@
       <li><strong>Roll the Stripe secret key.</strong> Go to <code>dashboard.stripe.com</code> → Developers → API keys. Find the <em>Secret key</em> starting with <code>sk_test_…</code> and click the <em>…</em> menu → <strong>Roll secret key</strong>. A new key appears (it starts with <code>sk_test_</code> too). Click to copy it.</li>
       <li><strong>Roll the Stripe webhook secret.</strong> Still in Stripe: Developers → Webhooks. Click your endpoint (the one pointing at <code>…supabase.co/functions/v1/stripe-webhook</code>). On its detail page click <strong>Roll signing secret</strong> → confirm. Copy the new <code>whsec_…</code> value.</li>
       <li><strong>Create a new Daily API key.</strong> Go to <code>dashboard.daily.co</code> → Developers (left sidebar) → API keys. Click <strong>+ Create API key</strong>, name it <code>1on1-prod</code>, copy the new key, then delete the old key from the list.</li>
-      <li><strong>Revoke the old Expo token.</strong> Go to <code>expo.dev</code> → log in → click your avatar → <em>Access Tokens</em>. Delete the old token. (No need to create a new one now — you'll be asked to log in again the next time a build is made.)</li>
+      <li><strong>Revoke the old Expo token.</strong> Go to <code>expo.dev</code> → log in → click your avatar → <em>Access Tokens</em>. Delete the old token. (No need to create a new one now; you'll be asked to log in again the next time a build is made.)</li>
       <li><strong>Hand the three new values to your coding agent</strong> (paste them in chat). It will run <code>supabase secrets set STRIPE_SECRET_KEY=… STRIPE_WEBHOOK_SIGNING_SECRET=… DAILY_API_KEY=…</code>, redeploy the affected functions (<code>create-payment-intent</code>, <code>stripe-webhook</code>, <code>create-video-session</code>, <code>cancel-booking</code>), and re-run the payment and video checks to prove the new keys work.</li>
     </ol>
-    <div class="note">Afterwards the app needs nothing — it uses the <em>publishable</em> key, which is public by design and doesn't rotate.</div>
+    <div class="note">Afterwards the app needs nothing: it uses the <em>publishable</em> key, which is public by design and doesn't rotate.</div>
   </div>
 
   <div class="task">
     <div class="head"><h2>2 · Add a payment method to the Daily account</h2><span class="pill must">Do before launch</span></div>
-    <p class="why">Why: without a card on file, Daily shows a "Missing payment method" screen instead of the video call — the app-side join flow itself already works.</p>
+    <p class="why">Why: without a card on file, Daily shows a "Missing payment method" screen instead of the video call; the app-side join flow itself already works.</p>
     <ol>
       <li>Log in at <code>dashboard.daily.co</code>.</li>
       <li>Click <strong>Billing</strong> in the left sidebar (you may need to pick your organization first, bottom-left).</li>
-      <li>Click <strong>Add payment method</strong> (or "Upgrade plan" if it routes you through plan choice — the free tier is fine to start; a card is required either way).</li>
-      <li>Enter the card details and save. Daily may show a $0 or $1 temporary authorization — that's normal.</li>
+      <li>Click <strong>Add payment method</strong> (or "Upgrade plan" if it routes you through plan choice, the free tier is fine to start; a card is required either way).</li>
+      <li>Enter the card details and save. Daily may show a $0 or $1 temporary authorization; that's normal.</li>
       <li><strong>Test:</strong> create a paid booking in the app whose time window is open, tap the session → <em>Join video lobby</em> → <em>Join session</em>. The Daily prejoin page ("Ready to join?", mic/camera toggles) should load instead of the payment gate. Your coding agent can do this test with you on the emulator.</li>
     </ol>
   </div>
@@ -109,9 +109,9 @@
     <ol>
       <li>Open the two source files: <code>public/legal/terms-of-service.html</code> and <code>public/legal/privacy-policy.html</code> in the 1on1 repo (any text editor).</li>
       <li>Search for <code>PLACEHOLDER</code>. You'll find: legal entity name (use the exact registered name, e.g. "DeepWorks LLC"), registered address, effective date, and governing jurisdiction (e.g. "the State of Delaware").</li>
-      <li>Replace each highlighted field. Ideally have a lawyer skim both docs once — they're written to be honest and complete, but only counsel can give legal advice.</li>
+      <li>Replace each highlighted field. Ideally have a lawyer skim both docs once; they're written to be honest and complete, but only counsel can give legal advice.</li>
       <li>Save both files, then ask the coding agent to publish (it runs <code>sh scripts/publish-legal-site.sh "Fill legal placeholders"</code>). The pages refresh on this site within a minute.</li>
-      <li><strong>Check:</strong> open <code>1on1-live.github.io/legal/terms-of-service.html</code> — no more orange banner or brackets.</li>
+      <li><strong>Check:</strong> open <code>1on1-live.github.io/legal/terms-of-service.html</code>: no more orange banner or brackets.</li>
     </ol>
   </div>
 
@@ -120,48 +120,48 @@
     <p class="why">Why: everything so far ran in Stripe's <em>test mode</em> (fake cards like 4242). Real customers need live mode, where real cards are charged.</p>
     <ol>
       <li>In <code>dashboard.stripe.com</code>, find the toggle in the top-right that says <strong>Test mode</strong> and switch it <strong>off</strong>. The whole dashboard now shows live data.</li>
-      <li>Developers → API keys → reveal and copy the <strong>Secret key</strong> (<code>sk_live_…</code>). Keep this one extra safe — it moves real money.</li>
+      <li>Developers → API keys → reveal and copy the <strong>Secret key</strong> (<code>sk_live_…</code>). Keep this one extra safe; it moves real money.</li>
       <li>Developers → Webhooks → <strong>+ Add endpoint</strong>. URL: <code>https://vaqibgoukmsrsptugrpp.supabase.co/functions/v1/stripe-webhook</code>. Event: <code>payment_intent.succeeded</code> (add <code>charge.refunded</code> too if you plan in-dashboard refunds). Create it, then click <strong>Roll signing secret</strong> (or "reveal") and copy the <code>whsec_…</code>.</li>
       <li>Copy the <strong>Publishable key</strong> (<code>pk_live_…</code>) from the API keys page as well.</li>
       <li>Give all three to the coding agent. It will set the secrets, redeploy functions, update the app config (<code>.env</code> + <code>eas.json</code> publishable key), and run one real-card smoke charge that you refund from the Stripe dashboard.</li>
       <li><strong>Cleanup:</strong> in Test mode's webhook list, delete the old test endpoint if a duplicate was created during setup (the live endpoint is the one under the live-mode toggle).</li>
     </ol>
-    <div class="note">Stripe live mode requires account activation (business details, bank account for payouts) — if you haven't completed that, the dashboard will prompt you at step 1. Allow a day or two for verification.</div>
+    <div class="note">Stripe live mode requires account activation (business details, bank account for payouts); if you haven't completed that, the dashboard will prompt you at step 1. Allow a day or two for verification.</div>
   </div>
 
   <div class="task">
     <div class="head"><h2>5 · Apple Pay merchant certificate</h2><span class="pill when">Do at launch (iOS)</span></div>
     <p class="why">Why: lets iPhone users pay with Apple Pay in addition to typed cards. Android/Google Pay is unaffected.</p>
     <ol>
-      <li>You need an <strong>Apple Developer Program</strong> membership ($99/year) at <code>developer.apple.com</code> — enroll first if you haven't.</li>
+      <li>You need an <strong>Apple Developer Program</strong> membership ($99/year) at <code>developer.apple.com</code>; enroll first if you haven't.</li>
       <li>In Apple's developer portal: Certificates, Identifiers &amp; Profiles → Identifiers → <strong>+</strong> → choose <strong>Merchant IDs</strong> → description <code>1on1</code>, identifier <code>merchant.com.deepworks.oneonone</code> → Register.</li>
       <li>In the Stripe dashboard: Settings → <strong>Payment method domains</strong> (or iOS Apple Pay certificate settings) → <strong>Add new application</strong>. Stripe gives you a CSR file to download.</li>
       <li>Back at Apple: open your merchant ID → <strong>Create Certificate</strong> → upload Stripe's CSR file → download the signed <code>applepay.cer</code> it gives you.</li>
       <li>Upload that <code>.cer</code> file back into the Stripe dashboard page from step 3. Apple Pay is now active for the domain.</li>
-      <li>Tell the coding agent — the app already passes <code>merchant.com.deepworks.oneonone</code> at payment time; it just needs the certificate to exist (steps 2–5).</li>
+      <li>Tell the coding agent: the app already passes <code>merchant.com.deepworks.oneonone</code> at payment time; it just needs the certificate to exist (steps 2–5).</li>
     </ol>
   </div>
 
   <div class="task">
     <div class="head"><h2>6 · Build &amp; submit to the app stores</h2><span class="pill when">Do at launch</span></div>
-    <p class="why">Why: the final step — producing the store packages and submitting them for review.</p>
+    <p class="why">Why: the final step: producing the store packages and submitting them for review.</p>
     <ol>
       <li><strong>Google Play (Android):</strong> create a developer account at <code>play.google.com/console</code> (one-time $25). Then have the coding agent run the production build (<code>eas build --profile production --platform android</code>) to get an <code>.aab</code> file, create the app in the Play Console, upload it, fill in the store listing (description, screenshots, the privacy-policy URL from this site), and submit for review. Review usually takes 1–7 days.</li>
-      <li><strong>Apple App Store (iOS):</strong> in <code>appstoreconnect.apple.com</code> create the app record (needs the bundle id <code>com.deepworks.oneonone</code> registered on your Apple account). The coding agent runs the iOS production build (<code>eas build --profile production --platform ios</code> — needs the Apple account connected), then submits via <code>eas submit</code>. Review typically takes 1–3 days. The privacy-policy URL and support contact come from this site.</li>
-      <li><strong>Both stores</strong> require: a support URL (use this site's <a href="/support.html">Support page</a>), a privacy-policy URL (<a href="/legal/privacy-policy.html">/legal/privacy-policy.html</a>), screenshots (the agent can capture them from the emulator), and a data-safety questionnaire — answers are already documented in the <a href="/legal/privacy-policy.html">Privacy Policy</a>: name + email, booking data, Stripe-processed payments, Daily video rooms, no tracking.</li>
+      <li><strong>Apple App Store (iOS):</strong> in <code>appstoreconnect.apple.com</code> create the app record (needs the bundle id <code>com.deepworks.oneonone</code> registered on your Apple account). The coding agent runs the iOS production build (<code>eas build --profile production --platform ios</code>, which needs the Apple account connected), then submits via <code>eas submit</code>. Review typically takes 1–3 days. The privacy-policy URL and support contact come from this site.</li>
+      <li><strong>Both stores</strong> require: a support URL (use this site's <a href="/support.html">Support page</a>), a privacy-policy URL (<a href="/legal/privacy-policy.html">/legal/privacy-policy.html</a>), screenshots (the agent can capture them from the emulator), and a data-safety questionnaire: answers are already documented in the <a href="/legal/privacy-policy.html">Privacy Policy</a>: name + email, booking data, Stripe-processed payments, Daily video rooms, no tracking.</li>
     </ol>
   </div>
 
   <div class="task">
     <div class="head"><h2>7 · Turn on error reporting (Sentry)</h2><span class="pill when">Do at launch</span></div>
-    <p class="why">Why: when something breaks for a real user, you want to know immediately — not via a bad review.</p>
+    <p class="why">Why: when something breaks for a real user, you want to know immediately, not via a bad review.</p>
     <ol>
       <li>Create a free account at <code>sentry.io</code> → create a project → choose platform "React Native" → copy the DSN string it shows (looks like <code>https://…@o….ingest.sentry.io/…</code>).</li>
-      <li>Paste it to the coding agent, who sets <code>EXPO_PUBLIC_SENTRY_DSN</code> in <code>.env</code> and <code>eas.json</code>. Error reporting is already wired in the app — it just needs the address to send to.</li>
+      <li>Paste it to the coding agent, who sets <code>EXPO_PUBLIC_SENTRY_DSN</code> in <code>.env</code> and <code>eas.json</code>. Error reporting is already wired in the app; it just needs the address to send to.</li>
     </ol>
   </div>
 
-  <p style="margin-top:36px;color:#8B93A2;font-size:14px">Blocked on a step? Hand it to your coding agent — anything inside the repo (builds, deploys, tests, configs) is automated; these pages list only what needs a human with dashboard access.</p>
+  <p style="margin-top:36px;color:#8B93A2;font-size:14px">Blocked on a step? Hand it to your coding agent: anything inside the repo (builds, deploys, tests, configs) is automated; these pages list only what needs a human with dashboard access.</p>
 </div>
 
 <footer>
